@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cqu.student.mapper.ClassesMapper">
+
+    <!-- 查询课程，根据时间、地点、授课老师进行动态过滤，但即使条件为空也返回全部记录 -->
+    <select id="findClasses" parameterType="java.lang.String">
+        SELECT * FROM classes
+        WHERE (#{time} IS NULL OR time = #{time})
+        AND (#{place} IS NULL OR place = #{place})
+        AND (#{classTeacher} IS NULL OR class_teacher = #{classTeacher})
+    </select>
+
+</mapper>
