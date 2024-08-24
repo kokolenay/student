@@ -23,4 +23,7 @@ public class Student {
     private LocalDate registerTime;
     private String stuPlace;
     private int doId;
+    private String nick;
+    private String email;
+    private String birth;
 }

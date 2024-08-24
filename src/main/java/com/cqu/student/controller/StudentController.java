@@ -42,7 +42,7 @@ public class StudentController {
     }
 
     @PostMapping("addStudent")
-    public R addStudent(@RequestBody Student student){
+    public R addStudent(@RequestBody Student student)throws Exception{
         int student1=studentService.addStudent(student);
         return student1 > 0 ? R.success(student1): R.fail("操作失败");
     }

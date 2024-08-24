@@ -9,31 +9,12 @@ import com.cqu.student.utils.AESEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-
-    private SecretKey key;
-    private IvParameterSpec iv;
-
-    public StudentServiceImpl() throws Exception {
-        // 初始化密钥和IV
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(256);
-        this.key = keyGen.generateKey();
-
-        byte[] ivBytes = new byte[16];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(ivBytes);
-        this.iv = new IvParameterSpec(ivBytes);
-    }
 
     @Autowired
     private StudentMapper studentMapper;
@@ -75,20 +56,47 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public  List<Student> findStudent(Integer stuId, String stuName){return studentMapper.findStudent(stuId, stuName);}
+    public  List<Student> findStudent(Integer stuId, String stuName) throws Exception {
+        List<Student> students = studentMapper.findStudent(stuId,stuName);
+        for(Student student : students) {
+            if (student != null && student.getIdCard() != null) {
+                String decryptedIdCard = AESEncryption.decryptByAES(student.getIdCard());
+                student.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
+            }
+            if(student != null && student.getPassword() != null) {
+                String decryptedPassword = AESEncryption.decryptByAES(student.getPassword());
+                student.setPassword(decryptedPassword);
+            }
+        }
+        return students;
+    }
 
     @Override
     public int updateStudent(Student student) throws Exception{
         if(student.getIdCard()!=null) {
-            String encryptedIdCard = AESEncryption.encrypt(student.getIdCard(), key, iv);
+            String encryptedIdCard = AESEncryption.encryptByAES(student.getIdCard());
             student.setIdCard(encryptedIdCard);
+        }
+        if(student.getPassword()!=null) {
+            String encryptedPassword = AESEncryption.encryptByAES(student.getPassword());
+            student.setPassword(encryptedPassword);
         }
         return studentMapper.updateStudent(student);
     }
 
     @Override
-    public Student login(String phone, String password) {
-        return studentMapper.login(phone,password);
+    public Student login(String phone, String password) throws  Exception{
+        String encryptedPassword = AESEncryption.encryptByAES(password);
+        Student student = studentMapper.login(phone,encryptedPassword);
+        if (student != null && student.getIdCard() != null) {
+            String decryptedIdCard = AESEncryption.decryptByAES(student.getIdCard());
+            student.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
+        }
+        if(student!=null && student.getIdCard()!=null) {
+            String decryptedPassword = AESEncryption.decryptByAES(student.getPassword());
+            student.setPassword(decryptedPassword);
+        }
+        return student;
     }
 
     @Override
@@ -105,7 +113,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void updateStudentDormitory(int stuId, int doId) {
-
+        studentMapper.updateStudentDormitory(stuId,doId);
     }
 
 
@@ -126,10 +134,17 @@ public class StudentServiceImpl implements StudentService {
         return "Student assigned to dormitory successfully!";
     }
 
-    public int addStudent(Student student){
+    public int addStudent(Student student) throws Exception{
+        if(student.getIdCard()!=null) {
+            String encryptedIdCard = AESEncryption.encryptByAES(student.getIdCard());
+            student.setIdCard(encryptedIdCard);
+        }
+        if(student.getPassword()!=null) {
+            String encryptedPassword = AESEncryption.encryptByAES(student.getPassword());
+            student.setPassword(encryptedPassword);
+        }
         //设置状态码为0
         student.setStatus(0);
         return studentMapper.addStudent(student);
-
     }
 }

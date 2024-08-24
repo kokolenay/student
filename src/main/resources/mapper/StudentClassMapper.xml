@@ -10,6 +10,6 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
     <insert id="classSuccess" parameterType="StudentClass">
         INSERT INTO student_class (stu_id, class_id)
         VALUES
-        (#{stu_id}, #{class_id})
+        (#{stuId}, #{classId})
     </insert>
 </mapper>

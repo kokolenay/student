@@ -23,6 +23,7 @@ public class StudentClassServiceImpl implements StudentClassService {
             return "Courses is full";
         }
 
+        classesMapper.updateChosen(classId);
         studentclassMapper.classSuccess(stuId,classId);
         return "Student added to class successfully";
     }

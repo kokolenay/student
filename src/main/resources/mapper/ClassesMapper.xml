@@ -15,7 +15,13 @@
 
     <!--选课成功添加数据-->
     <select id="getClassesById" parameterType="Classes">
-        SELECT * FROM classes WHERE class_id = #{class_id};
+        SELECT * FROM classes WHERE class_id = #{classId};
     </select>
+
+    <update id="updateChosen">
+        UPDATE classes
+        SET chosen = chosen + 1
+        WHERE class_id = #{classId};
+    </update>
 
 </mapper>

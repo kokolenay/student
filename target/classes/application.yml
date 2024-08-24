@@ -15,6 +15,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: on
 
+files:
+  upload:
+    path: 'D:\talent\files\' # 文件上传路径
+    fileMapper: '/profile/' # 文件映射路径
+
 #mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

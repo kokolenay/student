@@ -10,5 +10,7 @@ public interface ClassesMapper {
     //查询课程
     public List<Classes> findClasses(String classTeacher, String time, String place);
 
-    public Classes getClassesById(int class_id);
+    public Classes getClassesById(int classId);
+
+    public void updateChosen(int classId);
 }

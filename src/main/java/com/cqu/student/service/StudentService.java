@@ -26,12 +26,12 @@ public interface StudentService {
 
     public List<Map<String, Object>> countPlace();
 
-    public  List<Student> findStudent(Integer stuId, String stuName);
+    public  List<Student> findStudent(Integer stuId, String stuName) throws Exception;
 
     public  int updateStudent(Student student)throws Exception;
 
     //学生登录
-    public Student login(String phone, String password);
+    public Student login(String phone, String password)throws  Exception;
     public boolean stuDelete(int stuId);
 
     //学生选宿舍
@@ -41,6 +41,6 @@ public interface StudentService {
 
     public String assignDormitory(int stuId, int doId);
 
-    public int addStudent(Student student);
+    public int addStudent(Student student)throws Exception;
 }
 

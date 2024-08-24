@@ -105,7 +105,7 @@ public class LoginController {
 
     /*查询学生*/
     @GetMapping("/findStudent")
-    public R findStudent(@RequestBody Student student) {
+    public R findStudent(@RequestBody Student student) throws Exception {
         List<Student> students = studentService.findStudent(student.getStuId(),student.getStuName());
         return !students.isEmpty()? R.success(students) :R.fail("操作失败");
     }
@@ -118,7 +118,7 @@ public class LoginController {
     }
 
     @RequestMapping("/login")
-    public R login(@RequestBody  Student student) {
+    public R login(@RequestBody  Student student)throws  Exception {
         String phone=student.getPhone();
         String password=student.getPassword();
         Student login = studentService.login(phone, password);

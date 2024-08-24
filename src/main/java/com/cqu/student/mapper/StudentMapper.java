@@ -30,7 +30,7 @@ public interface StudentMapper {
 
     public Student login(String phone,String password);
 
-    public int stuDelete(int stu_id);
+    public int stuDelete(int stuId);
 
     //数据库中通过id查询学生
     public Student getStudentById(int stuId);

@@ -1,51 +1,56 @@
 package com.cqu.student.utils;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
-import java.security.SecureRandom;
 
 public class AESEncryption {
 
-    // AES 加密方法
-    public static String encrypt(String data, SecretKey key, IvParameterSpec iv) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-        byte[] encrypted = cipher.doFinal(data.getBytes());
-        return Base64.getEncoder().encodeToString(encrypted);
+    public static final String algorithm = "AES";
+    // 使用AES/CBC/PKCS5Padding模式
+    public static final String transformation = "AES/CBC/PKCS5Padding";
+    public static final String key = "1234567812345678";
+
+    /***
+     * 加密
+     * @param original 需要加密的参数
+     * @return 加密后的字符串
+     * @throws Exception
+     */
+    public static String encryptByAES(String original) throws Exception {
+        // 获取Cipher
+        Cipher cipher = Cipher.getInstance(transformation);
+        // 生成密钥
+        SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), algorithm);
+        // 创建初始化向量
+        IvParameterSpec iv = new IvParameterSpec(key.getBytes());
+        // 指定模式(加密)和密钥
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
+        // 加密
+        byte[] bytes = cipher.doFinal(original.getBytes());
+
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
-    // AES 解密方法
-    public static String decrypt(String encryptedData, SecretKey key, IvParameterSpec iv) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, key, iv);
-        byte[] original = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
-        return new String(original);
-    }
+    /**
+     * 解密
+     * @param encrypted 需要解密的参数
+     * @return 解密后的字符串
+     * @throws Exception
+     */
+    public static String decryptByAES(String encrypted) throws Exception {
+        // 获取Cipher
+        Cipher cipher = Cipher.getInstance(transformation);
+        // 生成密钥
+        SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), algorithm);
+        // 创建初始化向量
+        IvParameterSpec iv = new IvParameterSpec(key.getBytes());
+        // 指定模式(解密)和密钥
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
+        // 解密
+        byte[] bytes = cipher.doFinal(Base64.getDecoder().decode(encrypted));
 
-//    public static void main(String[] args) throws Exception {
-//        // 生成密钥和IV
-//        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-//        keyGen.init(256);
-//        SecretKey key = keyGen.generateKey();
-//
-//        byte[] ivBytes = new byte[16];
-//        SecureRandom random = new SecureRandom();
-//        random.nextBytes(ivBytes);
-//        IvParameterSpec iv = new IvParameterSpec(ivBytes);
-//
-//        String idNumber = "123456789012345678";
-//
-//        // 加密身份证号码
-//        String encryptedId = encrypt(idNumber, key, iv);
-//        System.out.println("加密后的身份证号码: " + encryptedId);
-//
-//        // 解密身份证号码
-//        String decryptedId = decrypt(encryptedId, key, iv);
-//        System.out.println("解密后的身份证号码: " + decryptedId);
-//    }
+        return new String(bytes);
+    }
 }
-
