@@ -5,6 +5,7 @@ import com.cqu.student.service.DomitoriesService;
 import com.cqu.student.service.StudentService;
 import com.cqu.student.pojo.Clazz;
 import com.cqu.student.service.ClassesService;
+import com.cqu.student.service.impl.StudentServiceImpl;
 import com.cqu.student.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ public class LoginController {
     //注入业务逻辑接口层对象
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private StudentServiceImpl studentServiceImpl;
 
     //账户激活
     @PostMapping("/register")
@@ -92,6 +95,13 @@ public class LoginController {
     public R countBuilding() {
         List<Map<Integer, Object>> count = domitoriesService.countBuilding();
         return !count.isEmpty()? R.success(count) :R.fail("操作失败");
+    }
+
+    /*查询学生*/
+    @PostMapping("/countBuilding")
+    public R findStudent(@RequestBody Student student) {
+        List<Student> students = studentService.findStudent(student.getStu_id(),student.getStu_name());
+        return !students.isEmpty()? R.success(students) :R.fail("操作失败");
     }
 }
 

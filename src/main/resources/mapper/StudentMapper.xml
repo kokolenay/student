@@ -32,11 +32,16 @@
 
     <!--获得各个环节已完成的人数-->
     <select id="countProcess">
-        select register_process, COUNT(*) as num from student group by register_process order by register_process;
+        select register_process, COUNT(*) as num from student where register_process is not null group by register_process order by register_process;
     </select>
 
     <!--生源地人数-->
     <select id="countPlace">
-        select stu_place, COUNT(*) as num from student group by stu_place;
+        select stu_place, COUNT(*) as num from student where stu_place is not null group by stu_place;
+    </select>
+
+    <!--查询学生-->
+    <select id="findStudent">
+        select * from student where (#{stuId} is null or stu_id = #{stuId}) and (#{stuName} is null or stu_name = #{stuName});
     </select>
 </mapper>

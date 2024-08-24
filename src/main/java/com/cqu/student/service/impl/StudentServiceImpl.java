@@ -51,4 +51,7 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.countPlace();
     }
 
+    @Override
+    public  List<Student> findStudent(Integer stuId, String stuName){return studentMapper.findStudent(stuId, stuName);}
+
 }

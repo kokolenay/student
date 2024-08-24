@@ -23,4 +23,6 @@ public interface StudentMapper {
     public List<Map<Integer, Object>> countProcess();
 
     public List<Map<String, Object>> countPlace();
+
+    public  List<Student> findStudent(Integer stuId, String stuName);
 }
