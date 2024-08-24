@@ -3,8 +3,12 @@ package com.cqu.student.controller;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.cqu.student.pojo.Student;
+import com.cqu.student.service.DomitoriesService;
+import com.cqu.student.service.FileService;
 import com.cqu.student.utils.R;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +33,17 @@ public class FileController {
     @Value("${files.upload.fileMapper}")
     private String fileMapper;
 
+    @Autowired
+    private FileService fileService;
+
     /**
      * 上传文件
      * @param file
      * @return
      */
     @PostMapping("/upload")
-    public R upload(@RequestParam MultipartFile file) throws IOException {
+    public R upload(@RequestParam MultipartFile file,
+                    Integer stuId) throws IOException {
         //1.获取文件名
         String originalFilename = file.getOriginalFilename();
         //2.获取文件的后缀
@@ -58,6 +66,8 @@ public class FileController {
         File uploadFile = new File(fileUpload+"/"+fileName);
         file.transferTo(uploadFile);
         //9.文件上传成功以后，返回路径给前端
+        url="D:/talent"+url;
+        fileService.upload(url,stuId);
         return R.success(url);
     }
 }

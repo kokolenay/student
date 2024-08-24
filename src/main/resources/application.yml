@@ -18,7 +18,7 @@ mybatis:
 files:
   upload:
     path: 'D:\talent\files\' # 文件上传路径
-    fileMapper: '/profile/' # 文件映射路径
+    fileMapper: '/files/' # 文件映射路径
 
 #mybatis-plus:
 #  configuration:
