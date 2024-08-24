@@ -81,6 +81,7 @@
         UPDATE student SET do_id = #{doId} WHERE stu_id = #{stuId}
     </update>
 
+    <!--添加学生-->
     <update id="addStudent" parameterType="Student">INSERT INTO student (stu_name, age, gender, phone, password, id_card, address, image, do_id)
         VALUES (#{stuName}, #{age}, #{gender}, #{phone}, #{password}, #{idCard}, #{address}, #{image}, #{doId})
     </update>
