@@ -1,7 +1,7 @@
 package com.cqu.student.service.impl;
 
 import com.cqu.student.mapper.ClassesMapper;
-import com.cqu.student.pojo.Clazz;
+import com.cqu.student.pojo.Classes;
 import com.cqu.student.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class ClassesServiceImpl implements ClassesService {
     private ClassesMapper classesMapper;
 
     @Override
-    public List<Clazz> findClasses(String classTeacher, String time, String place) {
+    public List<Classes> findClasses(String classTeacher, String time, String place) {
         return classesMapper.findClasses(classTeacher, time, place);
     }
 }

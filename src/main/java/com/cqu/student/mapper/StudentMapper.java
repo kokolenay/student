@@ -25,4 +25,18 @@ public interface StudentMapper {
     public List<Map<String, Object>> countPlace();
 
     public  List<Student> findStudent(Integer stuId, String stuName);
+
+    public int updateStudent(Student student);
+
+    public Student login(String phone,String password);
+
+    public int stuDelete(int stu_id);
+
+    //数据库中通过id查询学生
+    public Student getStudentById(int stuId);
+
+    //学生选择宿舍
+    public void updateStudentDormitory(int stuId, int doId);
+
+    public int addStudent(Student student);
 }

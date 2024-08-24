@@ -10,4 +10,13 @@
         select building, COUNT(*) as num from dormitories group by building Order by building;
     </select>
 
+    <!--查找宿舍信息-->
+    <select id="getDormitoryById">SELECT * FROM dormitories WHERE do_id = #{doId}</select>
+
+    <!--宿舍人数+1-->
+    <select id="incrementOccupied">UPDATE dormitories SET num = num + 1 WHERE do_id = #{doId}</select>
+
+    <!--按id排序来查看所有宿舍的信息-->
+    <select id="getALLDormitories">SELECT * FROM dormitories ORDER BY do_id</select>
+
 </mapper>

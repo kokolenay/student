@@ -1,0 +1,36 @@
+package com.cqu.student.controller;
+
+
+import com.cqu.student.pojo.Domitories;
+import com.cqu.student.service.DomitoriesService;
+import com.cqu.student.pojo.Student;
+import com.cqu.student.utils.R;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@CrossOrigin
+@RestController
+@RequestMapping("user")
+public class DormitoriesController {
+
+    @Autowired
+    private DomitoriesService dormitoriesService;
+
+    @GetMapping("getALLDormitories")
+    public R getALLDormitories(){
+        List<Domitories> dormitories =dormitoriesService.getALLDormitories();
+        return dormitories!=null ?R.success(dormitories) :R.fail("操作失败");
+
+
+    }
+
+    @PostMapping("getDormitoryById")
+    public R getDormitoryById(@RequestBody Domitories dormitories){
+        Integer id = dormitories.getDoId();
+        Domitories dormitories1= dormitoriesService.getDormitoryById(id);
+        return dormitories1!=null ? R.success(dormitories1) :R.fail("操作失败");
+    }
+
+}

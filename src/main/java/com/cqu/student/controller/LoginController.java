@@ -2,15 +2,18 @@ package com.cqu.student.controller;
 
 import com.cqu.student.pojo.Student;
 import com.cqu.student.service.DomitoriesService;
+import com.cqu.student.service.StudentClassService;
 import com.cqu.student.service.StudentService;
-import com.cqu.student.pojo.Clazz;
+import com.cqu.student.pojo.Classes;
 import com.cqu.student.service.ClassesService;
 import com.cqu.student.service.impl.StudentServiceImpl;
+import com.cqu.student.utils.ParamsPojo;
 import com.cqu.student.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,12 +43,15 @@ public class LoginController {
     @Autowired
     private DomitoriesService domitoriesService;
 
+    @Autowired
+    private StudentClassService studentClassService;
+
     @GetMapping("/findClasses")
-    public R findClasses(@RequestBody Clazz clazz) {
+    public R findClasses(@RequestBody Classes clazz) {
         String time = clazz.getTime();
         String place = clazz.getPlace();
         String classesTeacher = clazz.getClassTeacher();
-        List<Clazz> classes = classesService.findClasses(classesTeacher,time,place);
+        List<Classes> classes = classesService.findClasses(classesTeacher,time,place);
         return !classes.isEmpty() ? R.success(classes) : R.fail("没有找到符合条件的课程");
     }
 
@@ -53,13 +59,13 @@ public class LoginController {
     @GetMapping("/countOnline")
     public R countOnline() {
         int count = studentService.countOnline();
-        return count>0? R.success(count) :R.fail("操作失败");
+        return count>=0? R.success(count) :R.fail("操作失败");
     }
 
     @GetMapping("/countOnsite")
     public R countOnsite() {
         int count = studentService.countOnsite();
-        return count>0? R.success(count) :R.fail("操作失败");
+        return count>=0? R.success(count) :R.fail("操作失败");
     }
 
     /*获得每个系的人数*/
@@ -98,10 +104,46 @@ public class LoginController {
     }
 
     /*查询学生*/
-    @PostMapping("/countBuilding")
+    @GetMapping("/findStudent")
     public R findStudent(@RequestBody Student student) {
-        List<Student> students = studentService.findStudent(student.getStu_id(),student.getStu_name());
+        List<Student> students = studentService.findStudent(student.getStuId(),student.getStuName());
         return !students.isEmpty()? R.success(students) :R.fail("操作失败");
     }
+
+    /*修改学生*/
+    @PostMapping("/updateStudent")
+    public R updateStudent(@RequestBody Student student) throws Exception{
+        int result = studentService.updateStudent(student);
+        return result > 0 ? R.success(result) : R.fail("操作失败");
+    }
+
+    @RequestMapping("/login")
+    public R login(@RequestBody  Student student) {
+        String phone=student.getPhone();
+        String password=student.getPassword();
+        Student login = studentService.login(phone, password);
+        return login!=null?R.success(login):R.fail("手机号或密码错误");
+
+    }
+
+    @DeleteMapping("/stuDelete")
+    public R stuDelete(@RequestBody ParamsPojo paramsPojo) {
+        HashMap maps=paramsPojo.getMaps();
+        int stuId= (int) maps.get("stuId");
+        boolean isDeleted = studentService.stuDelete(stuId);
+        return isDeleted ?R.success(true):R.fail("手机号或密码错误");
+
+    }
+
+    @RequestMapping("/classSuccess")
+    public R classSuccess(@RequestBody ParamsPojo paramsPojo) {
+        HashMap maps=paramsPojo.getMaps();
+        int stuId= (int) maps.get("stuId");
+        int classId= (int) maps.get("classId");
+
+        String stu= studentClassService.classIfSuccess(stuId, classId);
+        return stu !=null ? R.success(stu):R.fail("操作失败");
+    }
+
 }
 

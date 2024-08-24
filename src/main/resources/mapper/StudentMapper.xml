@@ -41,7 +41,48 @@
     </select>
 
     <!--查询学生-->
-    <select id="findStudent">
-        select * from student where (#{stuId} is null or stu_id = #{stuId}) and (#{stuName} is null or stu_name = #{stuName});
+    <select id="findStudent" resultType="Student">
+        SELECT * FROM student
+        WHERE 1=1
+        <if test="stuId != null">
+            AND stu_id = #{stuId}
+        </if>
+        <if test="stuName != null">
+            AND stu_name = #{stuName}
+        </if>
     </select>
+
+    <!--修改学生-->
+    <update id="updateStudent">
+        UPDATE student SET stu_name = #{stuName}, age = #{age}, gender = #{gender},
+        phone = #{phone}, password = #{password}, id_card = #{idCard}, address = #{address},
+        image = #{image}, status = #{status}, register_method = #{registerMethod},
+        department = #{department}, register_time = #{registerTime}, stu_place = #{stuPlace}
+        WHERE stu_id = #{stuId}
+    </update>
+
+    <!--学生登录-->
+    <select id="login" parameterType="Student">
+        SELECT *
+        FROM student
+        WHERE phone = #{phone} AND password = #{password};
+    </select>
+    <delete id="stuDelete">
+        DELETE FROM student WHERE stu_id = #{stu_id};
+    </delete>
+
+    <!--在数据库中进行查询学生-->
+    <select id="getStudentById" parameterType="int">
+        SELECT * FROM student WHERE stu_id = #{stuId}
+    </select>
+
+    <!--学生选择宿舍）-->
+    <update id="updateStudentDormitory" parameterType="int">
+        UPDATE student SET do_id = #{doId} WHERE stu_id = #{stuId}
+    </update>
+
+    <update id="addStudent" parameterType="Student">INSERT INTO student (stu_name, age, gender, phone, password, id_card, address, image, do_id)
+        VALUES (#{stuName}, #{age}, #{gender}, #{phone}, #{password}, #{idCard}, #{address}, #{image}, #{doId})
+    </update>
+
 </mapper>

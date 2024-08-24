@@ -1,9 +1,9 @@
 package com.cqu.student.service;
 
-import com.cqu.student.pojo.Clazz;
+import com.cqu.student.pojo.Classes;
 
 import java.util.List;
 
 public interface ClassesService {
-    public List<Clazz> findClasses(String classTeacher, String time, String places);
+    public List<Classes> findClasses(String classTeacher, String time, String places);
 }

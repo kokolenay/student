@@ -13,4 +13,9 @@
         AND (#{classTeacher} IS NULL OR class_teacher = #{classTeacher})
     </select>
 
+    <!--选课成功添加数据-->
+    <select id="getClassesById" parameterType="Classes">
+        SELECT * FROM classes WHERE class_id = #{class_id};
+    </select>
+
 </mapper>
