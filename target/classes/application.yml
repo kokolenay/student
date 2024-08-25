@@ -9,6 +9,7 @@ spring:
     username: root
     password: 123456
 
+
 mybatis:
   mapper-locations: mapper/*.xml
   type-aliases-package: com.cqu.student.pojo
@@ -18,7 +19,7 @@ mybatis:
 files:
   upload:
     path: 'D:\talent\files\' # 文件上传路径
-    fileMapper: '/files/' # 文件映射路径
+    fileMapper: '/profile/' # 文件映射路径
 
 #mybatis-plus:
 #  configuration:

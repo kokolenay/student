@@ -25,7 +25,6 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/file")
 public class FileController {
-    //读取文件上传的路径
     @Value("${files.upload.path}")
     private String fileUpload;
 
@@ -42,8 +41,9 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    public R upload(@RequestParam MultipartFile file,
-                    Integer stuId) throws IOException {
+    public R upload(@RequestParam MultipartFile file,Integer stuId) throws IOException {
+
+        System.out.println(stuId);
         //1.获取文件名
         String originalFilename = file.getOriginalFilename();
         //2.获取文件的后缀
@@ -60,14 +60,20 @@ public class FileController {
         //6.重新命名文件 uuid
         String uuid = IdUtil.fastSimpleUUID();
         String fileName = uuid+ StrUtil.DOT+fileType;
-        //7.设置文件路径
-        String url = fileMapper + fileName;
+        //7.设置文件路径*****
+        String url = "http://localhost:8081"+fileMapper + fileName;
         //8.将文件写入磁盘
         File uploadFile = new File(fileUpload+"/"+fileName);
         file.transferTo(uploadFile);
         //9.文件上传成功以后，返回路径给前端
-        url="D:/talent"+url;
+        /*url="D:/talent"+url;*/
+
         fileService.upload(url,stuId);
+
+        System.out.println("Received stuId: " + stuId);
+
+        System.out.println(url);
+
         return R.success(url);
     }
 }

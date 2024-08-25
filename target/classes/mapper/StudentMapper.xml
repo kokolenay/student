@@ -54,13 +54,30 @@
 
     <!--修改学生-->
     <update id="updateStudent">
-        UPDATE student SET stu_name = #{stuName}, age = #{age}, gender = #{gender},
-        phone = #{phone}, password = #{password}, id_card = #{idCard}, address = #{address},
-        image = #{image}, status = #{status}, register_method = #{registerMethod},
-        department = #{department}, register_time = #{registerTime}, stu_place = #{stuPlace},
-        birth = #{birth}, nick = #{nick}, email = #{email}
-        WHERE stu_id = #{stuId}
+        UPDATE student
+        SET
+        stu_name = #{stuName},
+        age = #{age},
+        gender = #{gender},
+        phone = #{phone},
+        password = #{password},
+        id_card = #{idCard},
+        address = #{address},
+        image = #{image},
+        status = #{status},
+        register_method = #{registerMethod},
+        department = #{department},
+        register_time = #{registerTime},
+        register_process = #{registerProcess},
+        stu_place = #{stuPlace},
+        do_id = #{doId},
+        nick = #{nick},
+        birth = #{birth},
+        email = #{email}
+        WHERE
+        stu_id = #{stuId}
     </update>
+
 
     <!--学生登录-->
     <select id="login" parameterType="Student">
@@ -68,6 +85,8 @@
         FROM student
         WHERE phone = #{phone} AND password = #{password};
     </select>
+
+
     <delete id="stuDelete">
         DELETE FROM student WHERE stu_id = #{stuId};
     </delete>
@@ -83,8 +102,27 @@
     </update>
 
     <!--添加学生-->
-    <update id="addStudent" parameterType="Student">INSERT INTO student (stu_name, age, gender, phone, password, id_card, address, image, do_id, nick, birth, email)
-        VALUES (#{stuName}, #{age}, #{gender}, #{phone}, #{password}, #{idCard}, #{address}, #{image}, #{doId},#{nick},#{birth},#{email})
-    </update>
+    <insert id="addStudent" parameterType="Student">
+        INSERT INTO student (
+        stu_name, age, gender, phone, password, id_card, address, image, status,
+        register_method, department, register_time, register_process, stu_place,
+        do_id, nick, birth, email
+        )
+        VALUES (
+        #{stuName}, #{age}, #{gender}, #{phone}, #{password}, #{idCard}, #{address},
+        #{image}, #{status}, #{registerMethod}, #{department}, #{registerTime},
+        #{registerProcess}, #{stuPlace}, #{doId}, #{nick}, #{birth}, #{email}
+        )
+    </insert>
 
+
+    <!--查询男女人数-->
+    <select id="countGender">
+        select gender, COUNT(*) as num from student where gender is not null group by gender;
+    </select>
+
+    <!--在数据库中进行查询学生-->
+    <select id="findAllStudent">
+        SELECT * FROM student
+    </select>
 </mapper>

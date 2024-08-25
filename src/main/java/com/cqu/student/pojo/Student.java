@@ -19,6 +19,7 @@ public class Student {
     private String image;
     private int status;
     private String registerMethod;
+    private String registerProcess;
     private String department;
     private LocalDate registerTime;
     private String stuPlace;

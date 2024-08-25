@@ -20,7 +20,11 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     @Override
-    public int register(Student student) {
+    public int register(Student student) throws  Exception{
+        if(student != null && student.getPassword() != null) {
+            String encryptedPassword = AESEncryption.encryptByAES(student.getPassword());
+            student.setPassword(encryptedPassword);
+        }
         student.setStatus(1);
         return studentMapper.register(student);
     }
@@ -92,7 +96,7 @@ public class StudentServiceImpl implements StudentService {
             String decryptedIdCard = AESEncryption.decryptByAES(student.getIdCard());
             student.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
         }
-        if(student!=null && student.getIdCard()!=null) {
+        if(student!=null && student.getPassword()!=null) {
             String decryptedPassword = AESEncryption.decryptByAES(student.getPassword());
             student.setPassword(decryptedPassword);
         }
@@ -146,5 +150,26 @@ public class StudentServiceImpl implements StudentService {
         //设置状态码为0
         student.setStatus(0);
         return studentMapper.addStudent(student);
+    }
+
+    @Override
+    public List<Map<String, Object>> countGender(){
+        return studentMapper.countGender();
+    }
+
+    @Override
+    public List<Student> findAllStudent() throws Exception{
+        List<Student> students = studentMapper.findAllStudent();
+        for(Student student : students) {
+            if (student != null && student.getIdCard() != null) {
+                String decryptedIdCard = AESEncryption.decryptByAES(student.getIdCard());
+                student.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
+            }
+            if(student != null && student.getPassword() != null) {
+                String decryptedPassword = AESEncryption.decryptByAES(student.getPassword());
+                student.setPassword(decryptedPassword);
+            }
+        }
+        return students;
     }
 }

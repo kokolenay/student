@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface ClassesMapper {
     //查询课程
-    public List<Classes> findClasses(String classTeacher, String time, String place);
+    public List<Classes> findClasses(Classes classes);
 
     public Classes getClassesById(int classId);
 

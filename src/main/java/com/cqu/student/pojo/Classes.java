@@ -12,4 +12,6 @@ public class Classes {
     private int credits;
     private int capacity;
     private int chosen;
+    private String department;
+    private String type;
 }

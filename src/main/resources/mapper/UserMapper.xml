@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:名称命名空间，唯一标识一个xml文件
+id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的方法对应
+-->
+<mapper namespace="com.cqu.student.mapper.UserMapper">
+    <!--管理员登录-->
+    <select id="userLogin" >
+        SELECT *
+        FROM user
+        WHERE username = #{username} AND password = #{password};
+    </select>
+</mapper>

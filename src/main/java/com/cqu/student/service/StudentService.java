@@ -2,17 +2,13 @@ package com.cqu.student.service;
 
 import com.cqu.student.pojo.Student;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 public interface StudentService {
 
-    public int register(Student student);
+    public int register(Student student) throws  Exception;
 
     public int countOnline();
 
@@ -42,5 +38,9 @@ public interface StudentService {
     public String assignDormitory(int stuId, int doId);
 
     public int addStudent(Student student)throws Exception;
+
+    public List<Map<String, Object>> countGender();
+
+    public List<Student> findAllStudent()throws Exception;
 }
 

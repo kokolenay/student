@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface StudentMapper {
     //账户激活
-    public int register(Student student);
+    public int register(Student student) throws  Exception;
 
     public int countOnline();
 
@@ -39,4 +39,8 @@ public interface StudentMapper {
     public void updateStudentDormitory(int stuId, int doId);
 
     public int addStudent(Student student);
+
+    public List<Map<String, Object>> countGender();
+
+    public List<Student> findAllStudent() throws Exception;
 }

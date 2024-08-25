@@ -10,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 @RequestMapping("user")
-
-
-
 public class StudentController {
     @Autowired
     private StudentService studentService;
@@ -45,5 +44,11 @@ public class StudentController {
     public R addStudent(@RequestBody Student student)throws Exception{
         int student1=studentService.addStudent(student);
         return student1 > 0 ? R.success(student1): R.fail("操作失败");
+    }
+
+    @GetMapping("findAllStudent")
+    public R findAllStudent() throws Exception{
+        List<Student> student1=studentService.findAllStudent();
+        return !student1.isEmpty() ? R.success(student1): R.fail("操作失败");
     }
 }

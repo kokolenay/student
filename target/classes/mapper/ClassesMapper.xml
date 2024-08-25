@@ -11,6 +11,9 @@
         WHERE (#{time} IS NULL OR time = #{time})
         AND (#{place} IS NULL OR place = #{place})
         AND (#{classTeacher} IS NULL OR class_teacher = #{classTeacher})
+        AND (#{department} IS NULL OR department = #{department})
+        AND (#{className} IS NULL OR class_name = #{className})
+        AND (#{type} IS NULL OR type = #{type})
     </select>
 
     <!--选课成功添加数据-->

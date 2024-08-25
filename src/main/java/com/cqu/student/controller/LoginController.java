@@ -1,5 +1,7 @@
 package com.cqu.student.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
 import com.cqu.student.pojo.Student;
 import com.cqu.student.service.DomitoriesService;
 import com.cqu.student.service.StudentClassService;
@@ -12,6 +14,10 @@ import com.cqu.student.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +37,7 @@ public class LoginController {
 
     //账户激活
     @PostMapping("/register")
-    public R register(@RequestBody Student student){
+    public R register(@RequestBody Student student) throws  Exception{
         int register=studentService.register(student);
         return register>0? R.success(register) :R.fail("操作失败");
     }
@@ -46,12 +52,9 @@ public class LoginController {
     @Autowired
     private StudentClassService studentClassService;
 
-    @GetMapping("/findClasses")
+    @PostMapping("/findClasses")
     public R findClasses(@RequestBody Classes clazz) {
-        String time = clazz.getTime();
-        String place = clazz.getPlace();
-        String classesTeacher = clazz.getClassTeacher();
-        List<Classes> classes = classesService.findClasses(classesTeacher,time,place);
+        List<Classes> classes = classesService.findClasses(clazz);
         return !classes.isEmpty() ? R.success(classes) : R.fail("没有找到符合条件的课程");
     }
 
@@ -104,7 +107,7 @@ public class LoginController {
     }
 
     /*查询学生*/
-    @GetMapping("/findStudent")
+    @PostMapping("/findStudent")
     public R findStudent(@RequestBody Student student) throws Exception {
         List<Student> students = studentService.findStudent(student.getStuId(),student.getStuName());
         return !students.isEmpty()? R.success(students) :R.fail("操作失败");
@@ -144,6 +147,13 @@ public class LoginController {
         String stu= studentClassService.classIfSuccess(stuId, classId);
         return stu !=null ? R.success(stu):R.fail("操作失败");
     }
+
+    @GetMapping("/countGender")
+    public R countGender() {
+        List<Map<String, Object>> count = studentService.countGender();
+        return !count.isEmpty()? R.success(count) :R.fail("操作失败");
+    }
+
 
 }
 
