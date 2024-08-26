@@ -36,6 +36,7 @@ public class NoticeController {
     public R deleteNotice(@PathVariable Integer id) {
 
         int row = noticeService.delete(id);
+        System.out.println(row);
         return row > 0 ? R.success(row) : R.fail("操作失败");
     }
 
