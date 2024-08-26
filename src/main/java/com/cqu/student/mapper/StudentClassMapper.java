@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface StudentClassMapper {
-    void classSuccess(int stuId, int classId);
+    int classSuccess(int stuId, int classId);
+
+    StudentClass ifChosen(int stuId, int classId);
 }

@@ -129,8 +129,8 @@ public class StudentController {
         int stuId= (int) maps.get("stuId");
         int classId= (int) maps.get("classId");
 
-        String stu= studentClassService.classIfSuccess(stuId, classId);
-        return stu !=null ? R.success(stu):R.fail("操作失败");
+        int stu= studentClassService.classIfSuccess(stuId, classId);
+        return stu >0 ? R.success(stu):R.fail("操作失败");
     }
 
     @GetMapping("/studentPage")
