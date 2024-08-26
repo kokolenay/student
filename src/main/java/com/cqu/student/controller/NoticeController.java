@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("Notice")
+@RequestMapping("/api")
 public class NoticeController {
     //注入NoticeService实例
 
@@ -25,21 +25,21 @@ public class NoticeController {
         return row >0?R.success(row):R.fail("操作失败");
     }
 
-    @PostMapping("/update")
+    @PutMapping("/notice")
     public R updateNotice(@RequestBody Notice notice) {
 
         int row = noticeService.update(notice);
         return row > 0 ? R.success(row) : R.fail("操作失败");
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/notice/{id}")
     public R deleteNotice(@PathVariable Integer id) {
 
         int row = noticeService.delete(id);
         return row > 0 ? R.success(row) : R.fail("操作失败");
     }
 
-    @GetMapping("/query")
+    @GetMapping("/notice")
     public R queryALL() {
         List<Notice> noticelist =noticeService.query();
         return noticelist.size()>0?R.success(noticelist):R.fail("操作失败");

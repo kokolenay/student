@@ -22,7 +22,7 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
             <if test="content!=null and content !=''">
                 content=#{content},
             </if>
-            <if test="date!=null and date !=''">
+            <if test="date!=null">
                 date=#{date}
             </if>
         </set>
