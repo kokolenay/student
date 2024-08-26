@@ -13,4 +13,6 @@ public interface ClassesMapper {
     public Classes getClassesById(int classId);
 
     public void updateChosen(int classId);
+
+    public List<Classes> getAllClasses();
 }

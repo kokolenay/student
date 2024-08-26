@@ -1,5 +1,6 @@
 package com.cqu.student.mapper;
 
+import cn.hutool.db.Page;
 import com.cqu.student.pojo.Notice;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,4 +15,6 @@ public interface NoticeMapper {
     List<Notice> query();
 
     List<Notice> findNotice(Notice notice);
+
+    public Page queryAll();
 }

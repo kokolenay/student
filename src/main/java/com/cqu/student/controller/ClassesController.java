@@ -23,4 +23,10 @@ public class ClassesController {
         List<Classes> classes = classesService.findClasses(clazz);
         return !classes.isEmpty() ? R.success(classes) : R.fail("没有找到符合条件的课程");
     }
+
+    @GetMapping("/getAllClasses")
+    public R getAllClasses() {
+        List<Classes> classes = classesService.getAllClasses();
+        return !classes.isEmpty() ? R.success(classes) : R.fail("没有找到符合条件的课程");
+    }
 }

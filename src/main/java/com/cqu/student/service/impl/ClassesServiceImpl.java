@@ -17,4 +17,9 @@ public class ClassesServiceImpl implements ClassesService {
     public List<Classes> findClasses(Classes classes) {
         return classesMapper.findClasses(classes);
     }
+
+    @Override
+    public List<Classes> getAllClasses(){
+        return classesMapper.getAllClasses();
+    }
 }

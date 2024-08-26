@@ -27,4 +27,8 @@
         WHERE class_id = #{classId};
     </update>
 
+    <select id="getAllClasses" >
+        SELECT * FROM classes;
+    </select>
+
 </mapper>

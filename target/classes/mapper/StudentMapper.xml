@@ -47,7 +47,7 @@
         <if test="stuId != null">
             AND stu_id = #{stuId}
         </if>
-        <if test="stuName != null">
+        <if test="stuName != null and stuName!=''">
             AND stu_name = #{stuName}
         </if>
     </select>

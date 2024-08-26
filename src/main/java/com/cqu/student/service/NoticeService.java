@@ -1,5 +1,6 @@
 package com.cqu.student.service;
 
+import cn.hutool.db.Page;
 import com.cqu.student.pojo.Notice;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface NoticeService {
     List<Notice> query();
 
     List<Notice> findNotice(Notice notice);
+
+//    public Page queryAll(Integer currentPage, Integer pageSize);
 }

@@ -1,11 +1,16 @@
 package com.cqu.student.service.impl;
 
+import cn.hutool.db.Page;
 import com.cqu.student.mapper.NoticeMapper;
 import com.cqu.student.pojo.Notice;
 import com.cqu.student.service.NoticeService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.MidiDevice;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.Port;
 import java.util.Date;
 import java.util.List;
 
@@ -44,4 +49,11 @@ public class NoticeServiceImpl  implements NoticeService {
     public  List<Notice> findNotice(Notice notice){
         return noticeMapper.findNotice(notice);
     }
+
+//    @Override
+//    public Page queryAll(Integer currentPage, Integer pageSize){
+//        Page<Notice> page = PageHelper.startPage(currentPage, pageSize);
+//        List<Notice> infos = NoticeMapper.queryAll();
+//        return page;
+//    }
 }

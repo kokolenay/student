@@ -32,9 +32,9 @@ public class DormitoriesController {
         return !count.isEmpty()? R.success(count) :R.fail("操作失败");
     }
 
-    @PostMapping("getDormitoryById")
-    public R getDormitoryById(@RequestBody Domitories dormitories){
-        Integer id = dormitories.getDoId();
+    @GetMapping("/dorm/{id}")
+    public R getDormitoryById(@PathVariable Integer id){
+        System.out.println("123121312232");
         Domitories dormitories1= dormitoriesService.getDormitoryById(id);
         return dormitories1!=null ? R.success(dormitories1) :R.fail("操作失败");
     }
