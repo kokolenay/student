@@ -1,6 +1,7 @@
 package com.cqu.student.mapper;
 
 import com.cqu.student.pojo.Student;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDate;
@@ -43,4 +44,6 @@ public interface StudentMapper {
     public List<Map<String, Object>> countGender();
 
     public List<Student> findAllStudent() throws Exception;
+
+    public Page findAllStudents();
 }

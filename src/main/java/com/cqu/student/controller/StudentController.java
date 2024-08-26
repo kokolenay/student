@@ -5,6 +5,8 @@ import com.cqu.student.service.StudentClassService;
 import com.cqu.student.service.StudentService;
 import com.cqu.student.utils.ParamsPojo;
 import com.cqu.student.utils.R;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -129,5 +131,12 @@ public class StudentController {
 
         String stu= studentClassService.classIfSuccess(stuId, classId);
         return stu !=null ? R.success(stu):R.fail("操作失败");
+    }
+
+    @GetMapping("/studentPage")
+    public R studentPage(Integer currentPage, Integer pageSize) {
+        Page page = studentService.findAllStudents(currentPage, pageSize);
+        PageInfo info = new PageInfo<>(page);
+        return info!=null ?R.success(info):R.fail("操作失败");
     }
 }

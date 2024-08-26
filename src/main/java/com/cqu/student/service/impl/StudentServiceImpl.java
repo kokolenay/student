@@ -3,9 +3,12 @@ package com.cqu.student.service.impl;
 import com.cqu.student.mapper.DomitoriesMapper;
 import com.cqu.student.mapper.StudentMapper;
 import com.cqu.student.pojo.Domitories;
+import com.cqu.student.pojo.Notice;
 import com.cqu.student.pojo.Student;
 import com.cqu.student.service.StudentService;
 import com.cqu.student.utils.AESEncryption;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -171,5 +174,12 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         return students;
+    }
+
+    @Override
+    public Page findAllStudents(Integer currentPage, Integer pageSize){
+        Page<Notice> page = PageHelper.startPage(currentPage, pageSize);
+        List<Notice> infos = studentMapper.findAllStudents();
+        return page;
     }
 }

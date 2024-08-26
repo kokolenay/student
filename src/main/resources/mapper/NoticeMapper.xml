@@ -49,4 +49,8 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
             AND date = #{date}
         </if>
     </select>
+
+    <select id="queryAll" resultType="Notice">
+        select * from t_notice
+    </select>
 </mapper>

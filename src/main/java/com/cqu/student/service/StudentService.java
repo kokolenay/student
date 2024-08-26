@@ -1,6 +1,7 @@
 package com.cqu.student.service;
 
 import com.cqu.student.pojo.Student;
+import com.github.pagehelper.Page;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,5 +43,7 @@ public interface StudentService {
     public List<Map<String, Object>> countGender();
 
     public List<Student> findAllStudent()throws Exception;
+
+    public Page findAllStudents(Integer currentPage, Integer pageSize);
 }
 

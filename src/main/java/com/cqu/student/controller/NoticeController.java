@@ -1,9 +1,10 @@
 package com.cqu.student.controller;
 
-import cn.hutool.db.Page;
+
 import com.cqu.student.pojo.Notice;
 import com.cqu.student.service.NoticeService;
 import com.cqu.student.utils.R;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,10 +55,10 @@ public class NoticeController {
         return !noticelist.isEmpty() ?R.success(noticelist):R.fail("操作失败");
     }
 
-//    @GetMapping("page")
-//    public R queryAll(Integer currentPage, Integer pageSize) {
-//        Page page = noticeService.queryAll(currentPage, pageSize);
-//        PageInfo info = new PageInfo<>(page);
-//        return info!=null ?R.success(info):R.fail("操作失败");
-//    }
+    @GetMapping("/noticePage")
+    public R queryAll(Integer currentPage, Integer pageSize) {
+        Page page = noticeService.queryAll(currentPage, pageSize);
+        PageInfo info = new PageInfo<>(page);
+        return info!=null ?R.success(info):R.fail("操作失败");
+    }
 }

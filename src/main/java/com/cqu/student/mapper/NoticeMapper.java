@@ -1,7 +1,8 @@
 package com.cqu.student.mapper;
 
-import cn.hutool.db.Page;
+
 import com.cqu.student.pojo.Notice;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

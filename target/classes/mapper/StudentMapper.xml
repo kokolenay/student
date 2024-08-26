@@ -125,4 +125,9 @@
     <select id="findAllStudent">
         SELECT * FROM student
     </select>
+
+    <!--在数据库中进行查询学生-->
+    <select id="findAllStudents" resultType="Student">
+        SELECT * FROM student
+    </select>
 </mapper>
