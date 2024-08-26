@@ -8,6 +8,3 @@ public class User {
     String username;
     String password;
 }
-/*
-1111111111
- */

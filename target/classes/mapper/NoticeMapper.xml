@@ -37,4 +37,16 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
     <select id="query">
         select * from t_notice
     </select>
+
+    <!--查询通知信息-->
+    <select id="findNotice">
+        SELECT * FROM t_notice
+        WHERE 1=1
+        <if test="title != null">
+            AND title = #{title}
+        </if>
+        <if test="date != null">
+            AND date = #{date}
+        </if>
+    </select>
 </mapper>

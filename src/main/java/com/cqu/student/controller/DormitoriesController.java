@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -22,8 +23,13 @@ public class DormitoriesController {
     public R getALLDormitories(){
         List<Domitories> dormitories =dormitoriesService.getALLDormitories();
         return dormitories!=null ?R.success(dormitories) :R.fail("操作失败");
+    }
 
-
+    /*获得楼栋的人数*/
+    @GetMapping("/countBuilding")
+    public R countBuilding() {
+        List<Map<Integer, Object>> count = dormitoriesService.countBuilding();
+        return !count.isEmpty()? R.success(count) :R.fail("操作失败");
     }
 
     @PostMapping("getDormitoryById")

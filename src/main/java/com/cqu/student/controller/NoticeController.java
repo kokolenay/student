@@ -43,8 +43,12 @@ public class NoticeController {
     @GetMapping("/notice")
     public R queryALL() {
         List<Notice> noticelist =noticeService.query();
-        return noticelist.size()>0?R.success(noticelist):R.fail("操作失败");
+        return !noticelist.isEmpty() ?R.success(noticelist):R.fail("操作失败");
+    }
 
-
+    @PostMapping("/findNotice")
+    public R findNotice(@RequestBody Notice notice) {
+        List<Notice> noticelist =noticeService.findNotice(notice);
+        return !noticelist.isEmpty() ?R.success(noticelist):R.fail("操作失败");
     }
 }

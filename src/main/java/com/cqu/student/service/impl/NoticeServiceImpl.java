@@ -39,4 +39,9 @@ public class NoticeServiceImpl  implements NoticeService {
     public List<Notice> query() {
         return noticeMapper.query();
     }
+
+    @Override
+    public  List<Notice> findNotice(Notice notice){
+        return noticeMapper.findNotice(notice);
+    }
 }
