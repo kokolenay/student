@@ -8,6 +8,8 @@ import com.cqu.student.service.StudentClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentClassServiceImpl implements StudentClassService {
 
@@ -29,8 +31,8 @@ public class StudentClassServiceImpl implements StudentClassService {
     }
 
     @Override
-    public StudentClass ifChosen(int stuId, int classId) {
-        return studentclassMapper.ifChosen(stuId,classId);
+    public List<Integer> ifChosen(Integer stuId) {
+        return this.studentclassMapper.ifChosen(stuId);
     }
 
 

@@ -37,13 +37,9 @@ public class ClassesController {
         List<Classes> classes = classesService.getAllClasses();
         return !classes.isEmpty() ? R.success(classes) : R.fail("没有找到符合条件的课程");
     }
-    @GetMapping("/ifChosen")
-    public R ifChosen(@RequestBody ParamsPojo paramsPojo){
-        HashMap maps=paramsPojo.getMaps();
-        int stuId= (int) maps.get("stuId");
-        int classId= (int) maps.get("classId");
-        StudentClass ifChosen=studentClassService.ifChosen(stuId,classId);
-
-        return ifChosen!=null?R.success(ifChosen):R.fail("已选课");
+    @GetMapping({"/ifChosen/{stuId}"})
+    public R ifChosen(@PathVariable Integer stuId) {
+        List<Integer> ifChosen = this.studentClassService.ifChosen(stuId);
+        return !ifChosen.isEmpty() ? R.success(ifChosen) : R.fail("没有已选择的课程");
     }
 }

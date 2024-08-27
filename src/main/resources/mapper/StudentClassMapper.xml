@@ -14,7 +14,7 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
     </insert>
 
     <select id="ifChosen">
-        select * from student_class
-        where stu_id=#{stuId} and class_id=#{classId}
+        select class_id from student_class
+        where stu_id=#{stuId}
     </select>
 </mapper>
