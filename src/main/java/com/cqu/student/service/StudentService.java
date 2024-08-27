@@ -1,6 +1,7 @@
 package com.cqu.student.service;
 
 import com.cqu.student.pojo.Student;
+import com.cqu.student.pojo.StudentClass;
 import com.github.pagehelper.Page;
 
 import java.time.LocalDate;
@@ -45,5 +46,7 @@ public interface StudentService {
     public List<Student> findAllStudent()throws Exception;
 
     public Page findAllStudents(Integer currentPage, Integer pageSize);
+
+    public int getStudentByPhone(Student student);
 }
 

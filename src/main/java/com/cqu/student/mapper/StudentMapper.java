@@ -46,4 +46,6 @@ public interface StudentMapper {
     public List<Student> findAllStudent() throws Exception;
 
     public Page findAllStudents();
+
+    public int getStudentByPhone(Student student);
 }

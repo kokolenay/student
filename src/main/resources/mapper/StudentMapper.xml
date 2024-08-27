@@ -22,7 +22,7 @@
 
     <!--获得每个系的人数-->
     <select id="countDepartment">
-        select department, COUNT(*) as num from student group by department;
+        select department, COUNT(*) as num from student group by department ORDER BY num DESC;
     </select>
 
     <!--获得每日报道的人数-->
@@ -37,7 +37,7 @@
 
     <!--生源地人数-->
     <select id="countPlace">
-        select stu_place, COUNT(*) as num from student where stu_place is not null group by stu_place;
+        select stu_place, COUNT(*) as num from student where stu_place is not null group by stu_place ORDER BY num DESC;
     </select>
 
     <!--查询学生-->
@@ -129,5 +129,10 @@
     <!--在数据库中进行查询学生-->
     <select id="findAllStudents" resultType="Student">
         SELECT * FROM student
+    </select>
+
+    <!--在数据库中进行查询学生-->
+    <select id="getStudentByPhone" parameterType="Student">
+        SELECT status FROM student where phone = #{phone}
     </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.cqu.student.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
+import com.cqu.student.pojo.Notice;
 import com.cqu.student.pojo.User;
 import com.cqu.student.service.UserService;
 import com.cqu.student.utils.R;
@@ -12,6 +13,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -43,7 +45,7 @@ public class userController {
     private UserService userService;
 
     @PostMapping("userLogin")
-    public R assignDormitory(@RequestBody Map<String,String> map){
+    public R userLogin(@RequestBody Map<String,String> map){
         boolean check =  lineCaptcha.verify(map.get("code"));
         if(check){
             User user =  userService.userLogin(map.get("username"),map.get("password"));
@@ -51,5 +53,17 @@ public class userController {
         }else{
             return R.err(1001,"验证码错误");
         }
+    }
+
+    @PostMapping("updateUser")
+    public R UpdateUser(@RequestBody User user){
+        int result =userService.updateUser(user);
+        return result>0 ?R.success(result):R.fail("操作失败");
+    }
+
+    @PostMapping("insertUser")
+    public R insertUser(@RequestBody User user){
+        int result =userService.insertUser(user);
+        return result>0 ?R.success(result):R.fail("操作失败");
     }
 }

@@ -12,4 +12,24 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
         FROM user
         WHERE username = #{username} AND password = #{password};
     </select>
+
+    <!--添加-->
+    <update id="insertUser"  parameterType="User">
+        insert into user (id,username,password) value(#{id},#{username},#{password})
+    </update>
+
+    <!--修改-->
+    <update id="updateUser" parameterType="User">
+        update user
+        <set>
+            <if test="username !=null and username !=''">
+                username =#{username},
+            </if>
+            <if test="password!=null and password !=''">
+                password=#{password},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
 </mapper>

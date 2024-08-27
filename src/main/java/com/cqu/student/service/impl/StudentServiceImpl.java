@@ -182,4 +182,9 @@ public class StudentServiceImpl implements StudentService {
         List<Notice> infos = studentMapper.findAllStudents();
         return page;
     }
+
+    @Override
+    public int getStudentByPhone(Student student) {
+        return studentMapper.getStudentByPhone(student);
+    }
 }
