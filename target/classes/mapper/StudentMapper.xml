@@ -132,7 +132,7 @@
     </select>
 
     <!--在数据库中进行查询学生-->
-    <select id="getStudentByPhone" parameterType="Student">
+    <select id="getStudentByPhone">
         SELECT status FROM student where phone = #{phone}
     </select>
 </mapper>
