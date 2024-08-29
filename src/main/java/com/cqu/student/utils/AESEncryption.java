@@ -49,6 +49,7 @@ public class AESEncryption {
         // 指定模式(解密)和密钥
         cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
         // 解密
+
         byte[] bytes = cipher.doFinal(Base64.getDecoder().decode(encrypted));
 
         return new String(bytes);

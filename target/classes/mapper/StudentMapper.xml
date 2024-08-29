@@ -22,7 +22,7 @@
 
     <!--获得每个系的人数-->
     <select id="countDepartment">
-        select department, COUNT(*) as num from student group by department ORDER BY num DESC;
+        select department, COUNT(*) as num from student group by department;
     </select>
 
     <!--获得每日报道的人数-->
@@ -37,7 +37,7 @@
 
     <!--生源地人数-->
     <select id="countPlace">
-        select stu_place, COUNT(*) as num from student where stu_place is not null group by stu_place ORDER BY num DESC;
+        select stu_place, COUNT(*) as num from student where stu_place is not null group by stu_place;
     </select>
 
     <!--查询学生-->
@@ -55,25 +55,62 @@
     <!--修改学生-->
     <update id="updateStudent">
         UPDATE student
-        SET
-        stu_name = #{stuName},
-        age = #{age},
-        gender = #{gender},
-        phone = #{phone},
-        password = #{password},
-        id_card = #{idCard},
-        address = #{address},
-        image = #{image},
-        status = #{status},
-        register_method = #{registerMethod},
-        department = #{department},
-        register_time = #{registerTime},
-        register_process = #{registerProcess},
-        stu_place = #{stuPlace},
-        do_id = #{doId},
-        nick = #{nick},
-        birth = #{birth},
-        email = #{email}
+        <set>
+        <if test="stuName!=null and stuName !=''">
+            stu_name = #{stuName},
+        </if>
+        <if test="age!=null">
+            age = #{age},
+        </if>
+        <if test="gender!=null and gender !=''">
+            gender = #{gender},
+        </if>
+        <if test="phone!=null and phone !=''">
+            phone = #{phone},
+        </if>
+        <if test="password!=null and password !=''">
+            password = #{password},
+        </if>
+        <if test="idCard!=null and idCard !=''">
+            id_card = #{idCard},
+        </if>
+        <if test="address!=null and address !=''">
+            address = #{address},
+        </if>
+        <if test="image!=null and image !=''">
+            image = #{image},
+        </if>
+        <if test="status!=null">
+            status = #{status},
+        </if>
+        <if test="registerMethod!=null and registerMethod !=''">
+            register_method = #{registerMethod},
+        </if>
+        <if test="department!=null and department !=''">
+            department = #{department},
+        </if>
+        <if test="registerTime!=null">
+            register_time = #{registerTime},
+        </if>
+        <if test="registerProcess!=null">
+            register_process = #{registerProcess},
+        </if>
+        <if test="stuPlace!=null and stuPlace !=''">
+            stu_place = #{stuPlace},
+        </if>
+        <if test="doId!=null">
+            do_id = #{doId},
+        </if>
+        <if test="nick!=null and nick !=''">
+            nick = #{nick},
+        </if>
+        <if test="birth!=null and birth !=''">
+            birth = #{birth},
+        </if>
+        <if test="email!=null and email !=''">
+            email = #{email},
+        </if>
+        </set>
         WHERE
         stu_id = #{stuId}
     </update>
@@ -134,5 +171,10 @@
     <!--在数据库中进行查询学生-->
     <select id="getStudentByPhone">
         SELECT status FROM student where phone = #{phone}
+    </select>
+
+    <!--在数据库中进行查询学生-->
+    <select id="countStudent">
+        SELECT count(*) FROM student
     </select>
 </mapper>

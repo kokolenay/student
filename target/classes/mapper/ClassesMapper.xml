@@ -6,7 +6,7 @@
 <mapper namespace="com.cqu.student.mapper.ClassesMapper">
 
     <!-- 查询课程，根据时间、地点、授课老师进行动态过滤，但即使条件为空也返回全部记录 -->
-    <select id="findClasses" parameterType="java.lang.String">
+    <select id="findClasses">
         SELECT * FROM classes
         WHERE (#{time} IS NULL OR time = #{time})
         AND (#{place} IS NULL OR place = #{place})
@@ -14,6 +14,7 @@
         AND (#{department} IS NULL OR department = #{department})
         AND (#{className} IS NULL OR class_name = #{className})
         AND (#{type} IS NULL OR type = #{type})
+        AND (#{area} IS NULL OR type = #{area})
     </select>
 
     <!--选课成功添加数据-->
@@ -29,6 +30,70 @@
 
     <select id="getAllClasses" >
         SELECT * FROM classes;
+    </select>
+
+    <!--发布通知-->
+    <update id="insertClass"  parameterType="Classes">
+        insert into classes( class_name, class_teacher, time, place, credits, capacity, chosen, department, type, area) value(
+            #{className},
+            #{classTeacher},
+            #{time},
+            #{place},
+            #{credits},
+            #{capacity},
+            #{chosen},
+            #{department},
+            #{type},
+            #{area}
+        )
+    </update>
+
+    <!--修改通知-->
+    <update id="updateClass" parameterType="Classes">
+        UPDATE classes
+        <set>
+            <if test="className != null and className != ''">
+                class_name = #{className},
+            </if>
+            <if test="classTeacher != null and classTeacher != ''">
+                class_teacher = #{classTeacher},
+            </if>
+            <if test="time != null and time != ''">
+                time = #{time},
+            </if>
+            <if test="place != null and place != ''">
+                place = #{place},
+            </if>
+            <if test="credits != null">
+                credits = #{credits},
+            </if>
+            <if test="capacity != null">
+                capacity = #{capacity},
+            </if>
+            <if test="department != null and department != ''">
+                department = #{department},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="area != null and area != ''">
+                area = #{area},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image},
+            </if>
+        </set>
+        WHERE class_id = #{classId}
+    </update>
+
+
+    <!--删除通知公告-->
+    <delete id="deleteClass" parameterType="java.lang.Integer">
+        delete from classes where Class_id=#{ClassId}
+    </delete>
+
+    <select id="queryAll" resultType="Classes">
+        SELECT * FROM classes
     </select>
 
 </mapper>

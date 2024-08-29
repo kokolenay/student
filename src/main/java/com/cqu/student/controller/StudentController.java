@@ -140,9 +140,15 @@ public class StudentController {
         return info!=null ?R.success(info):R.fail("操作失败");
     }
 
-    @GetMapping("/getStudentByPhone")
+    @PostMapping("/getStudentByPhone")
     public R getStudentByPhone(@RequestBody Student student) {
         int res = studentService.getStudentByPhone(student);
-        return res>=0?R.success(res):R.fail("操作失败");
+        return res>=0 ?R.success(res):R.fail("操作失败");
+    }
+
+    @GetMapping("/countStudent")
+    public R countStudent() {
+        int res = studentService.countStudent();
+        return res>=0 ?R.success(res):R.fail("操作失败");
     }
 }

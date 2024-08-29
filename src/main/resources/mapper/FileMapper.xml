@@ -10,4 +10,8 @@ id:标识查询标签，唯一不能重复，取值与StudentMapper接口中的�
     <update id="upload" >
         update student set image = #{url} where stu_id = #{stuId}
     </update>
+
+    <update id="uploadClasses" >
+        update classes set image = #{url} where class_id = #{classId}
+    </update>
 </mapper>

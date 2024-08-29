@@ -29,7 +29,7 @@ public interface StudentMapper {
 
     public int updateStudent(Student student);
 
-    public Student login(String phone,String password);
+    public Student login(Student student);
 
     public int stuDelete(int stuId);
 
@@ -48,4 +48,6 @@ public interface StudentMapper {
     public Page findAllStudents();
 
     public int getStudentByPhone(Student student);
+
+    public int countStudent();
 }

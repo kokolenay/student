@@ -7,7 +7,7 @@
 
     <!-- 楼栋人数 -->
     <select id="countBuilding">
-        select building, COUNT(*) as num from dormitories group by building Order by building;
+        select building, sum(num) as num from dormitories group by building Order by building;
     </select>
 
     <!--查找宿舍信息-->

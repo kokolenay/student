@@ -14,4 +14,6 @@ public class Classes {
     private int chosen;
     private String department;
     private String type;
+    private String area;
+    private String image;
 }

@@ -1,7 +1,6 @@
 package com.cqu.student.service;
 
 import com.cqu.student.pojo.Student;
-import com.cqu.student.pojo.StudentClass;
 import com.github.pagehelper.Page;
 
 import java.time.LocalDate;
@@ -29,7 +28,7 @@ public interface StudentService {
     public  int updateStudent(Student student)throws Exception;
 
     //学生登录
-    public Student login(String phone, String password)throws  Exception;
+    public Student login(Student student)throws  Exception;
     public boolean stuDelete(int stuId);
 
     //学生选宿舍
@@ -48,5 +47,7 @@ public interface StudentService {
     public Page findAllStudents(Integer currentPage, Integer pageSize);
 
     public int getStudentByPhone(Student student);
+
+    public int  countStudent();
 }
 

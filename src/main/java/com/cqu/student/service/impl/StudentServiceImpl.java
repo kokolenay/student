@@ -65,16 +65,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public  List<Student> findStudent(Integer stuId, String stuName) throws Exception {
         List<Student> students = studentMapper.findStudent(stuId,stuName);
-        for(Student student : students) {
-            if (student != null && student.getIdCard() != null) {
-                String decryptedIdCard = AESEncryption.decryptByAES(student.getIdCard());
-                student.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
-            }
-            if(student != null && student.getPassword() != null) {
-                String decryptedPassword = AESEncryption.decryptByAES(student.getPassword());
-                student.setPassword(decryptedPassword);
-            }
-        }
         return students;
     }
 
@@ -92,18 +82,19 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student login(String phone, String password) throws  Exception{
-        String encryptedPassword = AESEncryption.encryptByAES(password);
-        Student student = studentMapper.login(phone,encryptedPassword);
-        if (student != null && student.getIdCard() != null) {
-            String decryptedIdCard = AESEncryption.decryptByAES(student.getIdCard());
-            student.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
+    public Student login(Student student) throws  Exception{
+        String encryptedPassword = AESEncryption.encryptByAES(student.getPassword());
+        student.setPassword(encryptedPassword);
+        Student students = studentMapper.login(student);
+        if (students != null && students.getIdCard() != null) {
+            String decryptedIdCard = AESEncryption.decryptByAES(students.getIdCard());
+            students.setIdCard(decryptedIdCard);  // 将解密后的数据设置回去
         }
-        if(student!=null && student.getPassword()!=null) {
-            String decryptedPassword = AESEncryption.decryptByAES(student.getPassword());
-            student.setPassword(decryptedPassword);
+        if(students!=null && students.getPassword()!=null) {
+            String decryptedPassword = AESEncryption.decryptByAES(students.getPassword());
+            students.setPassword(decryptedPassword);
         }
-        return student;
+        return students;
     }
 
     @Override
@@ -184,7 +175,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int getStudentByPhone(Student student) {
+    public int getStudentByPhone(Student student){
         return studentMapper.getStudentByPhone(student);
+    }
+
+    @Override
+    public int countStudent(){
+        return studentMapper.countStudent();
     }
 }

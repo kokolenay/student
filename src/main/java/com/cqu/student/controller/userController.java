@@ -2,7 +2,7 @@ package com.cqu.student.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
-import com.cqu.student.pojo.Notice;
+import com.cqu.student.pojo.Student;
 import com.cqu.student.pojo.User;
 import com.cqu.student.service.UserService;
 import com.cqu.student.utils.R;
@@ -45,7 +45,7 @@ public class userController {
     private UserService userService;
 
     @PostMapping("userLogin")
-    public R userLogin(@RequestBody Map<String,String> map){
+    public R assignDormitory(@RequestBody Map<String,String> map){
         boolean check =  lineCaptcha.verify(map.get("code"));
         if(check){
             User user =  userService.userLogin(map.get("username"),map.get("password"));
@@ -55,15 +55,15 @@ public class userController {
         }
     }
 
-    @PostMapping("updateUser")
-    public R UpdateUser(@RequestBody User user){
-        int result =userService.updateUser(user);
-        return result>0 ?R.success(result):R.fail("操作失败");
+    @PostMapping("/updateUser")
+    public R updateUser(@RequestBody User user) {
+        int res = userService.updateUser(user);
+        return res>0? R.success(res) :R.fail("操作失败");
     }
 
-    @PostMapping("insertUser")
-    public R insertUser(@RequestBody User user){
-        int result =userService.insertUser(user);
-        return result>0 ?R.success(result):R.fail("操作失败");
+    @PostMapping("/insertUser")
+    public R insertUser(@RequestBody User user) {
+        int res = userService.insertUser(user);
+        return res>0? R.success(res) :R.fail("操作失败");
     }
 }

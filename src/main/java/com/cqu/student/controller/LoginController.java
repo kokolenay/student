@@ -31,9 +31,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     public R login(@RequestBody  Student student)throws  Exception {
-        String phone=student.getPhone();
-        String password=student.getPassword();
-        Student login = studentService.login(phone, password);
+        Student login = studentService.login(student);
         return login!=null?R.success(login):R.fail("手机号或密码错误");
 
     }
@@ -43,7 +41,7 @@ public class LoginController {
 
         Set<String> set = emailRequest.getEmails();
         boolean res = MailUtils.sendEmail(set, emailRequest.getTitle(), emailRequest.getContent());
-        System.out.println(res);
+//        System.out.println(res);
         return res ? R.success("发送邮件成功") : R.fail("发送邮件失败");
     }
 

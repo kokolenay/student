@@ -17,4 +17,9 @@ public class FileServiceImpl implements FileService {
     public void upload(String url, Integer stuId) {
         fileMapper.upload(url,stuId);
     }
+
+    @Override
+    public void uploadClasses(String url, Integer classId){
+        fileMapper.uploadClasses(url,classId);
+    }
 }
